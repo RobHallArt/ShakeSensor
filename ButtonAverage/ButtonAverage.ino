@@ -8,6 +8,7 @@ Make bad code nice
 // constants won't change. They're used here to set pin numbers:
 const int buttonPin = 2;     // the number of the pushbutton pin
 //const int ledPin =  13;      // the number of the LED pin
+int lock = 0;
 int timer = 0;
 int arraySize = 35;
 
@@ -32,6 +33,21 @@ void setup() {
 void loop() {
   // read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
+
+  if (buttonState == HIGH && timer == 0) {
+    // turn LED on:
+    Serial.println("TRIGGER");
+    delay(100);
+    Serial.println("34");
+    readied = false;
+    timer = 50;
+  }
+  if(timer>0){
+    delay(20);
+    //Serial.println(timer);
+    timer--;
+  }
+  
   //Serial.println(arrayPos%arraySize);
   recentReadings[arrayPos%arraySize] = buttonState;
 
@@ -41,8 +57,8 @@ void loop() {
   }
 
   if(average<lastAverage && timer == 0){
-    Serial.println(average);
-    timer = 1;
+    //Serial.println(average);
+    lock = 1;
   }
   lastAverage = average;
   //average = average/arraySize;
@@ -51,8 +67,10 @@ void loop() {
   //timer++;
   delay(6);
   if(average == 0){
-    timer = 0;
+    lock = 0;
   }
+
+  
   
 
 //  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
