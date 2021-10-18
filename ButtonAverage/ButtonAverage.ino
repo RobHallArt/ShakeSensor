@@ -9,9 +9,9 @@ Make bad code nice
 const int buttonPin = 2;     // the number of the pushbutton pin
 //const int ledPin =  13;      // the number of the LED pin
 int timer = 0;
-int arraySize = 50;
+int arraySize = 35;
 
-int recentReadings[50];
+int recentReadings[35];
 int arrayPos = 0;
 int average = 0;
 int lastAverage = 0;
@@ -49,7 +49,7 @@ void loop() {
   //Serial.println(average);
   arrayPos++;
   //timer++;
-  delay(10);
+  delay(6);
   if(average == 0){
     timer = 0;
   }
